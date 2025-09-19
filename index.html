@@ -8,6 +8,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- model-viewer -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -25,8 +28,9 @@
       color: #ffcc00;
     }
     .container {
-      margin: 2rem auto;
-      max-width: 500px;
+      margin: 1.5rem auto;
+      max-width: 600px;
+      padding: 1rem;
     }
     select {
       padding: 0.7rem 1rem;
@@ -34,26 +38,19 @@
       border-radius: 8px;
       border: none;
       outline: none;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       background: #333;
       color: #fff;
     }
-    button {
-      padding: 0.8rem 1.2rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background: #ffcc00;
-      color: #000;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s ease-in-out;
-    }
-    button:hover {
-      background: #e6b800;
+    model-viewer {
+      width: 100%;
+      height: 400px;
+      background-color: #000;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
     footer {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       padding: 1rem;
       font-size: 0.85rem;
       color: #aaa;
@@ -67,14 +64,23 @@
 </header>
 
 <div class="container">
-  <p>Selecciona el modelo que deseas visualizar:</p>
-  <select id="modelSelect">
+  <p>Selecciona el modelo:</p>
+  <select id="modelSelect" onchange="changeModel()">
     <option value="cobre">Bloque de Cobre</option>
     <option value="plata">Bloque de Plata</option>
     <option value="laton">Bloque de Latón</option>
   </select>
-  <br>
-  <button onclick="openAR()">Ver en Realidad Aumentada</button>
+
+  <model-viewer id="viewer"
+    src="cobre.glb"
+    ios-src="cobre.usdz"
+    alt="Modelo 3D de joyería"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1">
+  </model-viewer>
 </div>
 
 <footer>
@@ -82,15 +88,11 @@
 </footer>
 
 <script>
-  function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent);
-  }
-
-  function openAR() {
+  function changeModel() {
     const model = document.getElementById("modelSelect").value;
-    const basePath = "./"; // Asume que los archivos están en la misma carpeta que index.html
-    const file = isIOS() ? `${basePath}${model}.usdz` : `${basePath}${model}.glb`;
-    window.location.href = file;
+    const viewer = document.getElementById("viewer");
+    viewer.src = `${model}.glb`;
+    viewer.setAttribute("ios-src", `${model}.usdz`);
   }
 </script>
 
