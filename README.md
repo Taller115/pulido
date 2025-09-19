@@ -1,0 +1,2 @@
+# pulido
+Pastas de pulido
