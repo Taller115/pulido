@@ -1,2 +1,2 @@
 # pulido
-Orden de uso de las pastas de pulido en diferentes metales
+Orden de uso de las pastas de pulido LUXOR, en diferentes metales
