@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Modelos AR - Joyería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- model-viewer -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      color: #eee;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      padding: 1.5rem;
+      background: #222;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffcc00;
+    }
+    .container {
+      margin: 1.5rem auto;
+      max-width: 600px;
+      padding: 1rem;
+    }
+    select {
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      margin-bottom: 1rem;
+      background: #333;
+      color: #fff;
+    }
+    model-viewer {
+      width: 100%;
+      height: 400px;
+      background-color: #000;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    footer {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  Pastas de pulido
+LUXOR
+</header>
+
+<div class="container">
+  <p>Selecciona el metal:</p>
+  <select id="modelSelect" onchange="changeModel()">
+    <option value="cobre">Cobre</option>
+    <option value="plata">Plata</option>
+    <option value="laton">Latón</option>
+    <option value="pastas">Pastas LUXOR</option>
+  </select>
+
+  <model-viewer id="viewer"
+    src="cobre.glb"
+    ios-src="cobre.usdz"
+    alt="Modelo 3D de joyería"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1">
+  </model-viewer>
+</div>
+
+<footer>
+  Compatible con <strong>iPhone (USDZ)</strong> y <strong>Android (GLB)</strong>
+</footer>
+
+<script>
+  function changeModel() {
+    const model = document.getElementById("modelSelect").value;
+    const viewer = document.getElementById("viewer");
+    viewer.src = `${model}.glb`;
+    viewer.setAttribute("ios-src", `${model}.usdz`);
+  }
+</script>
+
+</body>
+</html>
